@@ -348,3 +348,149 @@ mostrarProductosAdmin();
 }
 
 mostrarProductosAdmin();
+
+/* LOGIN */
+
+const formLogin=document.getElementById("form-login");
+
+if(formLogin){
+
+formLogin.addEventListener("submit",async(e)=>{
+
+e.preventDefault();
+
+const correo=document.getElementById("correo").value;
+
+const password=document.getElementById("password").value;
+
+const respuesta=await fetch(
+
+"http://localhost:4000/registro",
+
+{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+nombre,
+
+correo,
+
+password
+
+})
+
+}
+
+);
+
+const data=await respuesta.json();
+
+/* VALIDAR */
+
+if(data.success){
+
+alert("Usuario registrado");
+
+window.location.href="index.html";
+
+}else{
+
+alert("Usuario existente");
+
+}
+
+const data=await respuesta.json();
+
+if(data.success){
+
+localStorage.setItem(
+
+"usuario",
+
+JSON.stringify(data.usuario)
+
+);
+
+alert("Bienvenido");
+
+/* VALIDAR ROL */
+
+if(data.usuario.rol==="admin"){
+
+window.location.href="admin.html";
+
+}else{
+
+window.location.href="index.html";
+
+}
+
+}else{
+
+alert("Credenciales incorrectas");
+
+}
+
+});
+
+}
+
+/* REGISTRO */
+
+const formRegistro=document.getElementById("form-registro");
+
+if(formRegistro){
+
+formRegistro.addEventListener("submit",async(e)=>{
+
+e.preventDefault();
+
+const nombre=document.getElementById("nombre-registro").value;
+
+const correo=document.getElementById("correo-registro").value;
+
+const password=document.getElementById("password-registro").value;
+
+await fetch(
+
+"http://localhost:4000/registro",
+
+{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+nombre,
+
+correo,
+
+password
+
+})
+
+}
+
+);
+
+alert("Usuario registrado");
+
+window.location.href="index.html";
+
+});
+
+}

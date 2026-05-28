@@ -200,6 +200,164 @@ res.send("Producto eliminado");
 
 });
 
+/* LOGIN */
+
+app.post("/login",(req,res)=>{
+
+const {
+
+correo,
+password
+
+}=req.body;
+
+const sql=`
+
+SELECT * FROM Usuarios
+WHERE correo=? AND password=?
+
+`;
+
+conexion.query(
+
+sql,
+
+[correo,password],
+
+(error,resultados)=>{
+
+if(error){
+
+console.log(error);
+
+res.send("Error login");
+
+return;
+
+}
+
+if(resultados.length>0){
+
+res.json({
+
+success:true,
+
+usuario:resultados[0]
+
+});
+
+}else{
+
+res.json({
+
+success:false
+
+});
+
+}
+
+}
+
+);
+
+});
+
+/* REGISTRO */
+
+/* REGISTRO */
+
+app.post("/registro",(req,res)=>{
+
+const {
+
+nombre,
+correo,
+password
+
+}=req.body;
+
+/* VERIFICAR SI EXISTE */
+
+const verificarSql=
+
+"SELECT * FROM Usuarios WHERE correo=?";
+
+conexion.query(
+
+verificarSql,
+
+[correo],
+
+(error,resultados)=>{
+
+if(error){
+
+console.log(error);
+
+res.send("Error");
+
+return;
+
+}
+
+/* SI YA EXISTE */
+
+if(resultados.length>0){
+
+res.json({
+
+success:false,
+
+mensaje:"Usuario existente"
+
+});
+
+return;
+
+}
+
+/* REGISTRAR */
+
+const sql=`
+
+INSERT INTO Usuarios
+(nombre,correo,password,rol)
+
+VALUES
+(?, ?, ?, 'cliente')
+
+`;
+
+conexion.query(
+
+sql,
+
+[nombre,correo,password],
+
+(error,resultados)=>{
+
+if(error){
+
+console.log(error);
+
+res.send("Error registro");
+
+return;
+
+}
+
+res.json({
+
+success:true
+
+});
+
+});
+
+});
+
+});
+
 res.json(resultados);
 
 });
