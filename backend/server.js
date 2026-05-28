@@ -264,8 +264,6 @@ success:false
 
 /* REGISTRO */
 
-/* REGISTRO */
-
 app.post("/registro",(req,res)=>{
 
 const {
@@ -275,48 +273,6 @@ correo,
 password
 
 }=req.body;
-
-/* VERIFICAR SI EXISTE */
-
-const verificarSql=
-
-"SELECT * FROM Usuarios WHERE correo=?";
-
-conexion.query(
-
-verificarSql,
-
-[correo],
-
-(error,resultados)=>{
-
-if(error){
-
-console.log(error);
-
-res.send("Error");
-
-return;
-
-}
-
-/* SI YA EXISTE */
-
-if(resultados.length>0){
-
-res.json({
-
-success:false,
-
-mensaje:"Usuario existente"
-
-});
-
-return;
-
-}
-
-/* REGISTRAR */
 
 const sql=`
 
@@ -346,15 +302,11 @@ return;
 
 }
 
-res.json({
+res.send("Usuario registrado");
 
-success:true
+}
 
-});
-
-});
-
-});
+);
 
 });
 

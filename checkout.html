@@ -74,54 +74,53 @@ Finalizar Compra
 
 </h2>
 
-<form class="formulario">
+<div id="resumen-carrito">
+
+</div>
+
+<form id="form-checkout">
 
 <input
 type="text"
-placeholder="Nombre completo"
+id="nombre-checkout"
+placeholder="Nombre"
 required>
 
 <input
 type="email"
-placeholder="Correo electronico"
+id="correo-checkout"
+placeholder="Correo"
 required>
 
 <input
 type="text"
+id="direccion-checkout"
 placeholder="Direccion"
 required>
 
-<select>
-
-<option>
-
-Tarjeta
-
-</option>
-
-<option>
-
-PayPal
-
-</option>
-
-<option>
-
-Transferencia
-
-</option>
-
-</select>
-
 <button type="submit">
 
-Realizar Pedido
+Proceder al Pago
 
 </button>
 
 </form>
 
 </section>
+
+<script
+type="text/javascript"
+src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+
+</script>
+
+<script>
+
+emailjs.init("IEwtsMXlpVNaNgLcT");
+
+</script>
+
+<script src="script.js"></script>
 
 <script src="script.js"></script>
 

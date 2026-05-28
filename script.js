@@ -365,7 +365,7 @@ const password=document.getElementById("password").value;
 
 const respuesta=await fetch(
 
-"http://localhost:4000/registro",
+"http://localhost:4000/login",
 
 {
 
@@ -379,8 +379,6 @@ headers:{
 
 body:JSON.stringify({
 
-nombre,
-
 correo,
 
 password
@@ -390,22 +388,6 @@ password
 }
 
 );
-
-const data=await respuesta.json();
-
-/* VALIDAR */
-
-if(data.success){
-
-alert("Usuario registrado");
-
-window.location.href="index.html";
-
-}else{
-
-alert("Usuario existente");
-
-}
 
 const data=await respuesta.json();
 
@@ -421,17 +403,7 @@ JSON.stringify(data.usuario)
 
 alert("Bienvenido");
 
-/* VALIDAR ROL */
-
-if(data.usuario.rol==="admin"){
-
 window.location.href="admin.html";
-
-}else{
-
-window.location.href="index.html";
-
-}
 
 }else{
 
@@ -490,6 +462,146 @@ password
 alert("Usuario registrado");
 
 window.location.href="index.html";
+
+});
+
+}
+
+/* CHECKOUT */
+
+function mostrarCheckout(){
+
+const contenedor=document.getElementById("resumen-carrito");
+
+if(!contenedor) return;
+
+const carrito=JSON.parse(localStorage.getItem("carrito")) || [];
+
+contenedor.innerHTML="";
+
+let total=0;
+
+carrito.forEach(producto=>{
+
+total+=parseFloat(producto.precio);
+
+contenedor.innerHTML+=`
+
+<div class="item-checkout">
+
+<p>
+
+${producto.nombre}
+
+</p>
+
+<p>
+
+$${producto.precio}
+
+</p>
+
+</div>
+
+`;
+
+});
+
+contenedor.innerHTML+=`
+
+<div class="total-checkout">
+
+Total: $${total.toFixed(2)}
+
+</div>
+
+`;
+
+}
+
+mostrarCheckout();
+
+/* EMAILJS */
+
+const formCheckout=document.getElementById("form-checkout");
+
+if(formCheckout){
+
+formCheckout.addEventListener("submit",(e)=>{
+
+e.preventDefault();
+
+/* DATOS */
+
+const nombre=document.getElementById("nombre-checkout").value;
+
+const correo=document.getElementById("correo-checkout").value;
+
+/* OBTENER CARRITO */
+
+const carrito=JSON.parse(localStorage.getItem("carrito")) || [];
+
+/* PRODUCTOS */
+
+let productos="";
+
+/* TOTAL */
+
+let total=0;
+
+/* RECORRER PRODUCTOS */
+
+carrito.forEach(producto=>{
+
+productos+=`${producto.nombre} - $${producto.precio}\n`;
+
+total+=parseFloat(producto.precio);
+
+});
+
+/* ENVIAR CORREO */
+
+emailjs.send(
+
+"service_4py6e3p",
+
+"template_jyacx6e",
+
+{
+
+nombre:nombre,
+
+email:correo,
+
+productos:productos,
+
+total:total.toFixed(2)
+
+}
+
+)
+
+.then(()=>{
+
+alert("Pedido realizado correctamente");
+
+/* LIMPIAR CARRITO */
+
+localStorage.removeItem("carrito");
+
+/* REDIRECCION */
+
+window.location.href="index.html";
+
+})
+
+.catch((error)=>{
+
+console.log(error);
+
+alert("Error al enviar correo");
+
+});
 
 });
 
