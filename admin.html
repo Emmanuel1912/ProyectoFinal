@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Panel Admin
+
+</title>
+
+<link
+rel="stylesheet"
+href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<h1>
+
+UrbanWear Admin
+
+</h1>
+
+<div>
+
+<button onclick="location.href='index.html'">
+
+Inicio
+
+</button>
+
+<button onclick="location.href='catalogo.html'">
+
+Catalogo
+
+</button>
+
+<button onclick="location.href='carrito.html'">
+
+Carrito
+
+</button>
+
+</div>
+
+</nav>
+
+</header>
+
+<section class="admin">
+
+<h2>
+
+Agregar Producto
+
+</h2>
+
+<form id="form-producto">
+
+<input
+type="text"
+id="nombre"
+placeholder="Nombre del producto"
+required>
+
+<input
+type="number"
+id="precio"
+placeholder="Precio"
+required>
+
+<input
+type="number"
+id="stock"
+placeholder="Stock"
+required>
+
+<select id="categoria">
+
+<option value="1">
+
+Camisas
+
+</option>
+
+<option value="2">
+
+Pantalones
+
+</option>
+
+<option value="3">
+
+Vestidos
+
+</option>
+
+<option value="4">
+
+Sudaderas
+
+</option>
+
+<option value="5">
+
+Playeras
+
+</option>
+
+</select>
+
+<select id="talla">
+
+<option value="1">
+
+XS
+
+</option>
+
+<option value="2">
+
+S
+
+</option>
+
+<option value="3">
+
+M
+
+</option>
+
+<option value="4">
+
+L
+
+</option>
+
+<option value="5">
+
+XL
+
+</option>
+
+</select>
+
+<select id="proveedor">
+
+<option value="1">
+
+ModaPlus
+
+</option>
+
+<option value="2">
+
+FashionMX
+
+</option>
+
+<option value="3">
+
+RopaExpress
+
+</option>
+
+<option value="4">
+
+Textiles Luna
+
+</option>
+
+<option value="5">
+
+Distribuidora Sol
+
+</option>
+
+</select>
+
+<button type="submit">
+
+Guardar Producto
+
+</button>
+
+</form>
+
+<h2>
+
+Productos Registrados
+
+</h2>
+
+<div id="lista-productos">
+
+</div>
+
+</section>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

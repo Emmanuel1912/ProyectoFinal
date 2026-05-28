@@ -68,6 +68,138 @@ return;
 
 }
 
+/* AGREGAR PRODUCTO */
+
+app.post("/productos",(req,res)=>{
+
+const {
+
+nombre,
+precio,
+stock,
+categoria,
+talla,
+proveedor
+
+}=req.body;
+
+const sql=`
+
+INSERT INTO Productos
+(nombre,precio,idCategoria,idTalla,idProveedor,stock)
+
+VALUES
+(?, ?, ?, ?, ?, ?)
+
+`;
+
+conexion.query(
+
+sql,
+
+[
+nombre,
+precio,
+categoria,
+talla,
+proveedor,
+stock
+],
+
+(error,resultados)=>{
+
+if(error){
+
+console.log(error);
+
+res.send("Error al agregar producto");
+
+return;
+
+}
+
+res.send("Producto agregado");
+
+}
+
+);
+
+});
+
+/* ACTUALIZAR PRODUCTO */
+
+app.put("/productos/:id",(req,res)=>{
+
+const id=req.params.id;
+
+const {
+
+nombre,
+precio,
+stock
+
+}=req.body;
+
+const sql=`
+
+UPDATE Productos
+SET nombre=?, precio=?, stock=?
+WHERE idProducto=?
+
+`;
+
+conexion.query(
+
+sql,
+
+[nombre,precio,stock,id],
+
+(error,resultados)=>{
+
+if(error){
+
+console.log(error);
+
+res.send("Error al actualizar");
+
+return;
+
+}
+
+res.send("Producto actualizado");
+
+}
+
+);
+
+});
+
+/* ELIMINAR PRODUCTO */
+
+app.delete("/productos/:id",(req,res)=>{
+
+const id=req.params.id;
+
+const sql="DELETE FROM Productos WHERE idProducto=?";
+
+conexion.query(sql,[id],(error,resultados)=>{
+
+if(error){
+
+console.log(error);
+
+res.send("Error al eliminar");
+
+return;
+
+}
+
+res.send("Producto eliminado");
+
+});
+
+});
+
 res.json(resultados);
 
 });

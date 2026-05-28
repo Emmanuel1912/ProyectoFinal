@@ -168,3 +168,183 @@ mostrarCarrito();
 }
 
 mostrarCarrito();
+
+/* FORMULARIO ADMIN */
+
+const formulario=document.getElementById("form-producto");
+
+if(formulario){
+
+formulario.addEventListener("submit",async(e)=>{
+
+e.preventDefault();
+
+const nombre=document.getElementById("nombre").value;
+
+const precio=document.getElementById("precio").value;
+
+const stock=document.getElementById("stock").value;
+
+const categoria=document.getElementById("categoria").value;
+
+const talla=document.getElementById("talla").value;
+
+const proveedor=document.getElementById("proveedor").value;
+
+await fetch("http://localhost:4000/productos",{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+nombre,
+
+precio,
+
+stock,
+
+categoria,
+
+talla,
+
+proveedor
+
+})
+
+});
+
+alert("Producto agregado");
+
+formulario.reset();
+
+});
+
+}
+
+/* MOSTRAR PRODUCTOS ADMIN */
+
+async function mostrarProductosAdmin(){
+
+const contenedor=document.getElementById("lista-productos");
+
+if(!contenedor) return;
+
+const respuesta=await fetch("http://localhost:4000/productos");
+
+const productos=await respuesta.json();
+
+contenedor.innerHTML="";
+
+productos.forEach(producto=>{
+
+contenedor.innerHTML+=`
+
+<div class="producto-admin">
+
+<h3>
+
+${producto.nombre}
+
+</h3>
+
+<p>
+
+Precio: $${producto.precio}
+
+</p>
+
+<p>
+
+Stock: ${producto.stock}
+
+</p>
+
+<button onclick="eliminarProductoAdmin(${producto.idProducto})">
+
+Eliminar
+
+</button>
+
+<button onclick="actualizarProducto(${producto.idProducto})">
+
+Actualizar
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* ELIMINAR */
+
+async function eliminarProductoAdmin(id){
+
+await fetch(
+
+`http://localhost:4000/productos/${id}`,
+
+{
+
+method:"DELETE"
+
+}
+
+);
+
+mostrarProductosAdmin();
+
+}
+
+/* ACTUALIZAR */
+
+async function actualizarProducto(id){
+
+const nombre=prompt("Nuevo nombre");
+
+const precio=prompt("Nuevo precio");
+
+const stock=prompt("Nuevo stock");
+
+await fetch(
+
+`http://localhost:4000/productos/${id}`,
+
+{
+
+method:"PUT",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+nombre,
+
+precio,
+
+stock
+
+})
+
+}
+
+);
+
+mostrarProductosAdmin();
+
+}
+
+mostrarProductosAdmin();
