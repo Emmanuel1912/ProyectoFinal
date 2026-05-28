@@ -12,7 +12,7 @@ content="width=device-width, initial-scale=1.0">
 
 <title>
 
-UrbanWear
+Checkout
 
 </title>
 
@@ -36,7 +36,7 @@ UrbanWear
 
 <div>
 
-<button>
+<button onclick="location.href='index.html'">
 
 Inicio
 
@@ -66,37 +66,60 @@ Login
 
 </header>
 
-<section class="principal">
-
-<div>
+<section class="checkout">
 
 <h2>
 
-Encuentra tu estilo
+Finalizar Compra
 
 </h2>
 
-<p>
+<form class="formulario">
 
-Moda moderna para cualquier ocasión
+<input
+type="text"
+placeholder="Nombre completo"
+required>
 
-</p>
+<input
+type="email"
+placeholder="Correo electronico"
+required>
 
-<button>
+<input
+type="text"
+placeholder="Direccion"
+required>
 
-Comprar Ahora
+<select>
+
+<option>
+
+Tarjeta
+
+</option>
+
+<option>
+
+PayPal
+
+</option>
+
+<option>
+
+Transferencia
+
+</option>
+
+</select>
+
+<button type="submit">
+
+Realizar Pedido
 
 </button>
 
-</div>
-
-<div>
-
-<img
-src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b"
-alt="ropa">
-
-</div>
+</form>
 
 </section>
 
